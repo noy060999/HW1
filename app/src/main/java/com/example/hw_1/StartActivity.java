@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Switch;
+import android.widget.Toast;
 
 public class StartActivity extends AppCompatActivity {
     int time = 600;
@@ -36,6 +37,8 @@ public class StartActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
         setContentView(R.layout.activity_start);
         unmute();
         mediaPlayer = MediaPlayer.create(this.getApplicationContext(),R.raw.background_music);
@@ -107,8 +110,6 @@ public class StartActivity extends AppCompatActivity {
                 getSystemService(LAYOUT_INFLATER_SERVICE);
         final View popupView = inflater.inflate(R.layout.popup_window_settings, null);
         final Switch SWITCH_sound = popupView.findViewById(R.id.SWITCH_sound);
-        //SWITCH_sound.setTextOff("Sound on");
-        //SWITCH_sound.setTextOn("Sound off");
         Button BTN_ok = popupView.findViewById(R.id.BTN_ok);
 
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -125,11 +126,13 @@ public class StartActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     SWITCH_sound.setChecked(true);
+                    Toast.makeText(getBaseContext(), "sound off", Toast.LENGTH_SHORT).show();
                     state = 1;
                     mute();
                 }
                 else {
                     SWITCH_sound.setChecked(false);
+                    Toast.makeText(getBaseContext(), "sound on", Toast.LENGTH_SHORT).show();
                     state = 0;
                     unmute();
                 }
@@ -151,7 +154,7 @@ public class StartActivity extends AppCompatActivity {
     }
 
     private void unmute() {
-        //mute audio
+        //unmute audio
         AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC,AudioManager.ADJUST_UNMUTE,0);
     }

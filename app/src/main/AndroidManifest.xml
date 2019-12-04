@@ -9,7 +9,7 @@
         android:icon="@drawable/stitch_icon"
         android:label="Stitch, Run!"
         android:roundIcon="@drawable/stitch_icon"
-        android:supportsRtl="true"
+        android:supportsRtl="false"
         android:theme="@style/AppTheme">
         <activity
             android:name=".EndActivity"

@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_main);
 
         main_BUTTON_go_right = findViewById(R.id.main_BUTTON_go_right);
@@ -279,5 +280,12 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
         isGame = false;
         gameSound.stop();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        gameSound.start();
+        isGame = true;
     }
 }
