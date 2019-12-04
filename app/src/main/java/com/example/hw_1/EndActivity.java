@@ -16,7 +16,6 @@ public class EndActivity extends AppCompatActivity {
     TextView END_score;
     Button BTN_END_start_new_game;
     Button BTN_END_goto_menu;
-    MediaPlayer endSound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +32,6 @@ public class EndActivity extends AppCompatActivity {
 
         BTN_END_start_new_game = findViewById(R.id.BTN_END_start_new_game);
         BTN_END_goto_menu = findViewById(R.id.BTN_END_goto_menu);
-        endSound = MediaPlayer.create(this.getApplicationContext(),R.raw.game_sound);
-        endSound.start();
         BTN_END_start_new_game.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,13 +49,11 @@ public class EndActivity extends AppCompatActivity {
     }
 
     public void openMainActivity(){
-        endSound.stop();
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
     }
 
     public void openStartActivity(){
-        endSound.stop();
         Intent intent = new Intent(this,StartActivity.class);
         startActivity(intent);
     }
@@ -66,6 +61,10 @@ public class EndActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        endSound.stop();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }

@@ -164,4 +164,13 @@ public class StartActivity extends AppCompatActivity {
         super.onStop();
         mediaPlayer.stop();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (state == 1)
+            mute();
+        else
+            unmute();
+    }
 }

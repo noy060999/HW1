@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private int objectH;
     private int objectW;
     boolean isGame = true;
+    boolean isPaused = false;
     private Random rand = new Random();
     MediaPlayer ouchSound;
     MediaPlayer gameSound;
@@ -286,6 +287,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if (isPaused == true) {
+            View v = new View(this);
+            openPopupWindow(v);
+        }
         gameSound.start();
         isGame = true;
     }
@@ -295,5 +300,6 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         gameSound.start();
         isGame = true;
+        isPaused = true;
     }
 }
