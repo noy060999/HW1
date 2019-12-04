@@ -1,5 +1,6 @@
 package com.example.hw_1;
-
+//Noy Danenberg 207897893
+//Shelly Krihali 209677863
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -285,6 +286,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        gameSound.start();
+        isGame = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
         gameSound.start();
         isGame = true;
     }
