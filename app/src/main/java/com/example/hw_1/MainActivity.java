@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private Button main_BUTTON_go_right;
     private Button main_BUTTON_go_left;
     private Button main_IMAGEBUTTON_pause;
+    private GridLayout main_GRID;
     private TextView main_VIEW_score;
     private ImageView[] players;
     private ImageView[] lives;
@@ -41,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
     private int time = 400;
     private int score = 0;
     private int num_of_lives = 3;
+    private int screenH;
+    private int screenW;
+    private int objectH;
+    private int objectW;
     boolean isGame = true;
     private Random rand = new Random();
     MediaPlayer ouchSound;
@@ -60,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
         main_IMAGEBUTTON_pause = findViewById(R.id.main_IMAGEBUTTON_pause);
 
         ouchSound = MediaPlayer.create(getApplicationContext(),R.raw.ouch_sound);
-
         gameSound = MediaPlayer.create(getApplicationContext(),R.raw.game_sound);
         gameSound.start();
         main_BUTTON_go_right.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 isGame = false;
+                main_BUTTON_go_left.setClickable(false);
+                main_BUTTON_go_right.setClickable(false);
                 openPopupWindow(v);
             }
         });
@@ -103,6 +110,8 @@ public class MainActivity extends AppCompatActivity {
                 {findViewById(R.id.image_BADGUY20),findViewById(R.id.image_BADGUY21),findViewById(R.id.image_BADGUY22)},
                 {findViewById(R.id.image_BADGUY30),findViewById(R.id.image_BADGUY31),findViewById(R.id.image_BADGUY32)}
         };
+
+        setDimensions();
         makeObstaclesInvisible();
         startPlayer();
         startLives();
@@ -110,6 +119,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // functions :
+    private void setDimensions() {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        screenH = displayMetrics.heightPixels - main_BUTTON_go_left.getLayoutParams().height - lives[0].getLayoutParams().height;
+        screenW = displayMetrics.widthPixels;
+        objectH = screenH/5;
+        objectW = screenW/3;
+        for (int i=0; i<obstacles.length; i++){
+            for (int j=0; j<obstacles[0].length; j++){
+                obstacles[i][j].requestLayout();
+                obstacles[i][j].getLayoutParams().height = objectH;
+                obstacles[i][j].getLayoutParams().width = objectW;
+            }
+        }
+        for (int k=0; k<players.length; k++){
+            players[k].requestLayout();
+            players[k].getLayoutParams().height = objectH;
+            players[k].getLayoutParams().width = objectW;
+        }
+    }
     private void makeObstaclesInvisible (){
         for (int i=0; i<obstacles.length; i++){
             for (int j=0; j<obstacles[0].length; j++)
@@ -143,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void randObstaclesPos() {
         score+=10;
-        main_VIEW_score.setText("Your score "+ score);
+        main_VIEW_score.setText("score "+ score);
         if (positionObstacleRow == -1)
             positionObstacleCol = rand.nextInt((3));
 
@@ -231,6 +260,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 isGame = true;
+                main_BUTTON_go_left.setClickable(true);
+                main_BUTTON_go_right.setClickable(true);
                 loopFunc();
                 popupWindow.dismiss();
             }
@@ -240,5 +271,12 @@ public class MainActivity extends AppCompatActivity {
     public void openNewGame(){
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        isGame = false;
+        gameSound.stop();
     }
 }
