@@ -160,20 +160,20 @@ public class MainActivity extends AppCompatActivity {
                 positionObstacleCol = rand.nextInt((3));
             }
         }
-            for (int i = 0; i < obstacles.length; i++) {
-                    if (positionObstacleRow == i )
-                        obstacles[i][positionObstacleCol].setVisibility(View.VISIBLE);
-                    else
-                        obstacles[i][positionObstacleCol].setVisibility(View.INVISIBLE);
-            }
+        for (int i = 0; i < obstacles.length; i++) {
+            if (positionObstacleRow == i )
+                obstacles[i][positionObstacleCol].setVisibility(View.VISIBLE);
+            else
+                obstacles[i][positionObstacleCol].setVisibility(View.INVISIBLE);
         }
+    }
 
     private void loopFunc(){
         final Handler handler = new Handler();
         Runnable runTimer = new Runnable() {
             public void run(){
                 if(isGame) {
-                    time -=3;
+                    time -=2;
                     if (time < 200)
                         time = 200;
                     loopFunc();

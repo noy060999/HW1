@@ -32,14 +32,12 @@
         android:backgroundTint="@color/colorButtons"/>
 
     <ImageView
-        android:contentDescription="logo"
         android:layout_width="390dp"
         android:layout_height="160dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/logo"/>
 
     <ImageView
-        android:contentDescription="first stitch"
         android:id="@+id/start_STITCH1"
         android:layout_width="120dp"
         android:layout_height="120dp"
@@ -47,7 +45,6 @@
         android:background="@drawable/cutestitch"/>
 
     <ImageView
-        android:contentDescription="second stitch"
         android:id="@+id/start_STITCH2"
         android:layout_width="120dp"
         android:layout_height="120dp"
@@ -56,7 +53,6 @@
         android:background="@drawable/stitch"/>
 
     <ImageView
-        android:contentDescription="third stitch"
         android:id="@+id/start_STITCH3"
         android:layout_width="140dp"
         android:layout_height="140dp"
