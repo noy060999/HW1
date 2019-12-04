@@ -28,6 +28,7 @@ public class StartActivity extends AppCompatActivity {
     ImageView[] playerPics;
     MediaPlayer mediaPlayer;
     Button BTN_settings;
+    int state = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,12 +116,23 @@ public class StartActivity extends AppCompatActivity {
         boolean focusable = false; // lets taps outside the popup also dismiss it
         final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
         popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
-
+        if (state == 1)
+            SWITCH_sound.setChecked(true);
+        else
+            SWITCH_sound.setChecked(false);
         SWITCH_sound.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
+                if (isChecked) {
+                    SWITCH_sound.setChecked(true);
+                    state = 1;
                     mute();
+                }
+                else {
+                    SWITCH_sound.setChecked(false);
+                    state = 0;
+                    unmute();
+                }
             }
         });
 

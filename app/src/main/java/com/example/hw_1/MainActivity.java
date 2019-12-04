@@ -179,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
         positionObstacleRow++;
         if (positionObstacleRow == obstacles.length){
             if (positionPlayer == positionObstacleCol) {
+                MySignal.vibrate(this,300);
                 ouchSound.start();
                 checkLost();
             }
