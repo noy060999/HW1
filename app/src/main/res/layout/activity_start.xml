@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/island"
+    tools:context=".StartActivity">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/BTN_start_game"
+        android:layout_centerInParent="true"
+        android:text="Start game"
+        android:fontFamily="@font/walyer"
+        android:padding="15dp"
+        android:textSize="30sp"
+        android:backgroundTint="@color/colorBackground"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/BTN_settings"
+        android:layout_below="@+id/BTN_start_game"
+        android:layout_centerInParent="true"
+        android:text="Settings"
+        android:fontFamily="@font/walyer"
+        android:textSize="25sp"
+        android:padding="15dp"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="@color/colorButtons"/>
+
+    <ImageView
+        android:contentDescription="logo"
+        android:layout_width="390dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/logo"/>
+
+    <ImageView
+        android:contentDescription="first stitch"
+        android:id="@+id/start_STITCH1"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/cutestitch"/>
+
+    <ImageView
+        android:contentDescription="second stitch"
+        android:id="@+id/start_STITCH2"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/start_STITCH1"
+        android:background="@drawable/stitch"/>
+
+    <ImageView
+        android:contentDescription="third stitch"
+        android:id="@+id/start_STITCH3"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@id/start_STITCH2"
+        android:background="@drawable/liloandstich"/>
+
+</RelativeLayout>
