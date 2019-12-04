@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/island"
+    tools:context=".EndActivity">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="390dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/logo"/>
+
+    <TextView
+        android:id="@+id/END_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/walyer"
+        android:textSize="25dp"
+        android:text="final score:"
+        android:textColor="#FFFFFF"
+        android:layout_marginLeft="50dp"
+        android:layout_below="@id/END_game_over"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/BTN_END_start_new_game"
+        android:layout_centerInParent="true"
+        android:text="Start new game"
+        android:fontFamily="@font/walyer"
+        android:padding="5dp"
+        android:textSize="25dp"
+        android:backgroundTint="@color/colorBackground"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/BTN_END_goto_menu"
+        android:layout_below="@+id/BTN_END_start_new_game"
+        android:layout_centerInParent="true"
+        android:text="start menu"
+        android:fontFamily="@font/walyer"
+        android:textSize="20dp"
+        android:padding="5dp"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="@color/colorButtons"/>
+
+
+    <TextView
+        android:id="@+id/END_game_over"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Game Over!!"
+        android:textSize="40dp"
+        android:fontFamily="@font/walyer"
+        android:textColor="#FFFFFF"
+        android:layout_below="@id/logo"
+        android:layout_centerHorizontal="true"/>
+
+    <ImageView
+        android:layout_width="320dp"
+        android:layout_height="170dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/sadstitch2"/>
+
+</RelativeLayout>
