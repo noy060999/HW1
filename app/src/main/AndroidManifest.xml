@@ -3,14 +3,16 @@
     package="com.example.hw_1">
 
     <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/stitch_icon"
-        android:label="Stitch, Run!"
+        android:label="Stitch,Run!"
         android:roundIcon="@drawable/stitch_icon"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
+        <activity android:name=".HighScoresActivity"></activity>
         <activity
             android:name=".EndActivity"
             android:screenOrientation="portrait" />
@@ -20,9 +22,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".StartActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

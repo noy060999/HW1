@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -15,21 +16,35 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
-public class StartActivity extends AppCompatActivity {
+public class StartActivity extends AppCompatActivity implements Spinner.OnItemSelectedListener{
+    public static final String KEY_NUM_OF_LANES = "KEY_NUM_OF_LANES";
+    public static final String KEY_TILT = "KEY_TILT";
+    public static final String KEY_MUSIC = "KEY_MUSIC";
     int time = 600;
     int pos = 0;
     ImageView[] playerPics;
-    MediaPlayer mediaPlayer;
-    Button BTN_settings;
+    MediaPlayer startSound;
+    Button BTN_settings, BTN_highScores, BTN_setName, BTN_start_game;
+    EditText start_EDT_name;
+    int lanesNumber;
     int state = 0;
+    boolean tiltIsChecked = false;
+    String playerName;
+    boolean isClicked = false;
+    Player player = new Player(null,null,null);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +56,37 @@ public class StartActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_start);
         unmute();
-        mediaPlayer = MediaPlayer.create(this.getApplicationContext(),R.raw.background_music);
-        mediaPlayer.start();
+        BTN_start_game = findViewById(R.id.BTN_start_game);
+        startSound = MediaPlayer.create(this.getApplicationContext(),R.raw.background_music);
+        startSound.start();
+        start_EDT_name = findViewById(R.id.start_EDT_name);
+        BTN_setName = findViewById(R.id.BTN_setName);
+        BTN_setName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playerName = start_EDT_name.getText() + "";
+                player.setName(playerName);
+                saveNameToSP(player);
+            }
+        });
+
+
+
+        /*while (isClicked == false){
+            BTN_start_game.setClickable(false);
+            Toast.makeText(getBaseContext(), "must click: set name", Toast.LENGTH_LONG).show();
+        }*/
+
         BTN_settings = findViewById(R.id.BTN_settings);
+        BTN_highScores = findViewById(R.id.BTN_highScores);
+        BTN_highScores.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openScoresActivity();
+            }
+        });
         playerPics = new ImageView[] {
                 findViewById(R.id.start_STITCH1),findViewById(R.id.start_STITCH2),findViewById(R.id.start_STITCH3)};
-        Button BTN_start_game = findViewById(R.id.BTN_start_game);
         showPlayerFirstTime();
 
         BTN_start_game.setOnClickListener(new View.OnClickListener(){
@@ -68,7 +108,19 @@ public class StartActivity extends AppCompatActivity {
     // functions :
     private void openNewActivity(){
         Intent intent = new Intent (this, MainActivity.class);
-        mediaPlayer.stop();
+        Bundle extras = new Bundle();
+        extras.putInt(KEY_NUM_OF_LANES,lanesNumber);
+        extras.putBoolean(KEY_TILT,tiltIsChecked);
+        //intent.putExtra(KEY_NUM_OF_LANES,lanesNumber);
+        intent.putExtras(extras);
+        startSound.stop();
+        startActivity(intent);
+        finish();
+    }
+
+    private void openScoresActivity(){
+        Intent intent = new Intent(this, HighScoresActivity.class);
+        //intent.putExtra(KEY_MUSIC, startSound);
         startActivity(intent);
     }
 
@@ -109,8 +161,27 @@ public class StartActivity extends AppCompatActivity {
         LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
         final View popupView = inflater.inflate(R.layout.popup_window_settings, null);
-        final Switch SWITCH_sound = popupView.findViewById(R.id.SWITCH_sound);
-        Button BTN_ok = popupView.findViewById(R.id.BTN_ok);
+        final Switch settings_SWITCH_sound = popupView.findViewById(R.id.settings_SWITCH_sound);
+        final Button settings_BTN_ok = popupView.findViewById(R.id.settings_BTN_ok);
+        final CheckBox settings_CHECKBOX_tilt = popupView.findViewById(R.id.settings_CHECKBOX_tilt);
+        settings_CHECKBOX_tilt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (settings_CHECKBOX_tilt.isChecked()) {
+                    tiltIsChecked = true;
+                    Toast.makeText(getBaseContext(), "Accelerator on", Toast.LENGTH_SHORT).show();
+                } else {
+                    tiltIsChecked = false;
+                    Toast.makeText(getBaseContext(), "Accelerator off", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        Spinner settings_SPINNER_lanes = popupView.findViewById(R.id.settings_SPINNER_lanes);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.lanes,android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        settings_SPINNER_lanes.setAdapter(adapter);
+        settings_SPINNER_lanes.setOnItemSelectedListener(this);
 
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -118,20 +189,20 @@ public class StartActivity extends AppCompatActivity {
         final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
         popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
         if (state == 1)
-            SWITCH_sound.setChecked(true);
+            settings_SWITCH_sound.setChecked(true);
         else
-            SWITCH_sound.setChecked(false);
-        SWITCH_sound.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            settings_SWITCH_sound.setChecked(false);
+        settings_SWITCH_sound.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    SWITCH_sound.setChecked(true);
+                    settings_SWITCH_sound.setChecked(true);
                     Toast.makeText(getBaseContext(), "sound off", Toast.LENGTH_SHORT).show();
                     state = 1;
                     mute();
                 }
                 else {
-                    SWITCH_sound.setChecked(false);
+                    settings_SWITCH_sound.setChecked(false);
                     Toast.makeText(getBaseContext(), "sound on", Toast.LENGTH_SHORT).show();
                     state = 0;
                     unmute();
@@ -139,12 +210,21 @@ public class StartActivity extends AppCompatActivity {
             }
         });
 
-        BTN_ok.setOnClickListener(new View.OnClickListener() {
+        settings_BTN_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 popupWindow.dismiss();
             }
         });
+    }
+
+    public void saveNameToSP(Player p){
+        SharedPreferences prefs = getSharedPreferences(EndActivity.GAME_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        String recentNames = prefs.getString(Fragment2.KEY_NAME, "unknown user");
+        recentNames = recentNames +"\n"+ p.getName() ;
+        editor.putString(Fragment2.KEY_NAME, recentNames);
+        editor.commit();
     }
 
     private void mute() {
@@ -162,7 +242,7 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        mediaPlayer.stop();
+        startSound.stop();
     }
 
     @Override
@@ -172,5 +252,16 @@ public class StartActivity extends AppCompatActivity {
             mute();
         else
             unmute();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String text = parent.getItemAtPosition(position).toString();
+        lanesNumber = Integer.parseInt(text);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        lanesNumber = 5;
     }
 }

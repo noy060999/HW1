@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="fragment_TXT_score1" type="id" />
+    <item name="fragment2_TXT_score1" type="id" />
+    <item name="fragment2_TXT_score2" type="id" />
+    <item name="fragment2_TXT_score3" type="id" />
+    <item name="fragment2_TXT_score4" type="id" />
+    <item name="fragment2_TXT_score5" type="id" />
+    <item name="fragment2_TXT_score6" type="id" />
+    <item name="fragment2_TXT_score7" type="id" />
+    <item name="fragment2_TXT_score8" type="id" />
+    <item name="fragment2_TXT_score9" type="id" />
+    <item name="fragment2_TXT_score10" type="id" />
+</resources>

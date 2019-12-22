@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HighScoresActivity">
+
+    <Button
+        android:id="@+id/BTN_back"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/back"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"/>
+
+    <fragment
+        android:name="com.example.hw_1.Fragment1"
+        android:layout_width="match_parent"
+        android:layout_height="363dp"
+        android:id="@+id/content_fragment1_map" />
+
+    <fragment
+        android:name="com.example.hw_1.Fragment2"
+        android:layout_width="match_parent"
+        android:layout_height="362dp"
+        android:layout_marginTop="363dp"
+        android:id="@+id/content_fragment2_table"/>
+
+</RelativeLayout>

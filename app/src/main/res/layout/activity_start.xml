@@ -7,11 +7,15 @@
     android:background="@drawable/island"
     tools:context=".StartActivity">
 
+
+
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/BTN_start_game"
         android:layout_centerInParent="true"
+        android:layout_marginTop="220dp"
         android:text="Start game"
         android:fontFamily="@font/walyer"
         android:padding="15dp"
@@ -27,15 +31,50 @@
         android:text="Settings"
         android:fontFamily="@font/walyer"
         android:textSize="25sp"
-        android:padding="15dp"
+        android:paddingRight="52dp"
+        android:paddingLeft="52dp"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="@color/colorButtons"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/BTN_highScores"
+        android:layout_below="@id/BTN_settings"
+        android:layout_centerHorizontal="true"
+        android:text="best scores"
+        android:fontFamily="@font/walyer"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:paddingRight="30dp"
+        android:paddingLeft="30dp"
         android:layout_marginTop="5dp"
         android:backgroundTint="@color/colorButtons"/>
 
     <ImageView
+        android:id="@+id/start_LOGO"
         android:layout_width="390dp"
         android:layout_height="160dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/logo"/>
+
+    <EditText
+        android:id="@+id/start_EDT_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/start_LOGO"/>
+
+    <Button
+        android:id="@+id/BTN_setName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/start_EDT_name"
+        android:text="set name"
+        android:fontFamily="@font/walyer"/>
+
+
 
     <ImageView
         android:id="@+id/start_STITCH1"
