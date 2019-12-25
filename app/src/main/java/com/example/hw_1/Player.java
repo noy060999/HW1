@@ -5,15 +5,15 @@ import android.widget.TextView;
 class Player implements Comparable{
         private String name;
         private String score;
-        private String location;
+        /*private String location;
         private TextView nameTV;
         private TextView scoreTV;
-        private TextView locationTV;
+        private TextView locationTV;*/
 
         public Player(String name, String score, String location){
             this.name = name;
             this.score = score;
-            this.location = location;
+            //this.location = location;
         }
         public Player(){
 
@@ -27,9 +27,9 @@ class Player implements Comparable{
             return score;
         }
 
-        public String getLocation(){
+       /* public String getLocation(){
             return location;
-        }
+        }*/
 
         public void setName(String name) {
             this.name = name;
@@ -39,7 +39,7 @@ class Player implements Comparable{
             this.score = score;
         }
 
-        public void setLocation(String location) {
+       /* public void setLocation(String location) {
             this.location = location;
         }
 
@@ -65,7 +65,7 @@ class Player implements Comparable{
 
     public TextView getLocationTV() {
         return locationTV;
-    }
+    }*/
 
     @Override
     public int compareTo(Object o) {

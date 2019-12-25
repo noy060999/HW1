@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -37,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
     public static final String KEY_SCORE = "KEY_SCORE";
     private Button main_BUTTON_go_right, main_BUTTON_go_left, main_IMAGEBUTTON_pause;
     private TextView main_VIEW_score;
-    private TextView numLanes;
     private ImageView[] players, lives;
     private ImageView[][] obstacles;
     private int positionPlayer = 1, positionObstacleRow = -1, positionObstacleCol = 0;
@@ -49,11 +49,10 @@ public class MainActivity extends AppCompatActivity {
     private Random rand = new Random();
     private int numberOfLanes, numberOfRows = 5,numberOfLives = 3, numberOfGames = 0;
     boolean useAccelerator = false, isFirstGame = true;
-    MediaPlayer ouchSound,gameSound;
+    MediaPlayer ouchSound,gameSound,biteSound;
     private SensorManager sensorManager;
     private Sensor mSensor;
-    double ax,ay,az;
-
+    double ax;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_main);
-
             Intent intent = getIntent();
             Bundle extras = intent.getExtras();
             //get extras from start activity
@@ -78,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
                     numberOfLanes = extras2.getInt(EndActivity.KEY_NEW_NUMBER_OF_LANES);
                 }
             }
-
 
         if (numberOfLanes != 3)
             numberOfLanes = 5;
@@ -99,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
         ouchSound = MediaPlayer.create(getApplicationContext(),R.raw.ouch_sound);
         gameSound = MediaPlayer.create(getApplicationContext(),R.raw.game_sound);
+        biteSound = MediaPlayer.create(getApplicationContext(),R.raw.bite);
         gameSound.start();
         main_BUTTON_go_right.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -248,9 +246,11 @@ public class MainActivity extends AppCompatActivity {
         if (positionPrizeRow == obstacles.length) {
             if (positionPlayer == positionPrizeCol) {
                 score += 50;
+                biteSound.start();
                 main_VIEW_score.setText("score "+ score);
                 obstacles[positionPrizeRow - 1][positionPrizeCol].setVisibility(View.INVISIBLE);
                 positionPrizeRow = 0;
+                positionPrizeCol = rand.nextInt(numberOfLanes);
             }
             else {
                 obstacles[positionPrizeRow - 1][positionPrizeCol].setVisibility(View.INVISIBLE);

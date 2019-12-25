@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 public class StartActivity extends AppCompatActivity implements Spinner.OnItemSelectedListener{
     public static final String KEY_NUM_OF_LANES = "KEY_NUM_OF_LANES";
+    public static final String GAME_PREFS = "ArithmeticFile";
     public static final String KEY_TILT = "KEY_TILT";
     public static final String KEY_MUSIC = "KEY_MUSIC";
     int time = 600;
@@ -45,6 +46,7 @@ public class StartActivity extends AppCompatActivity implements Spinner.OnItemSe
     String playerName;
     boolean isClicked = false;
     Player player = new Player(null,null,null);
+    SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,8 @@ public class StartActivity extends AppCompatActivity implements Spinner.OnItemSe
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         setContentView(R.layout.activity_start);
+        prefs = getSharedPreferences(GAME_PREFS,0);
+
         unmute();
         BTN_start_game = findViewById(R.id.BTN_start_game);
         startSound = MediaPlayer.create(this.getApplicationContext(),R.raw.background_music);
@@ -65,17 +69,13 @@ public class StartActivity extends AppCompatActivity implements Spinner.OnItemSe
             @Override
             public void onClick(View v) {
                 playerName = start_EDT_name.getText() + "";
+                if (playerName == "" || playerName == null || playerName == " ")
+                    playerName = "unknown user";
+                Toast.makeText(getBaseContext(), "name saved!", Toast.LENGTH_SHORT).show();
                 player.setName(playerName);
                 saveNameToSP(player);
             }
         });
-
-
-
-        /*while (isClicked == false){
-            BTN_start_game.setClickable(false);
-            Toast.makeText(getBaseContext(), "must click: set name", Toast.LENGTH_LONG).show();
-        }*/
 
         BTN_settings = findViewById(R.id.BTN_settings);
         BTN_highScores = findViewById(R.id.BTN_highScores);
@@ -219,7 +219,6 @@ public class StartActivity extends AppCompatActivity implements Spinner.OnItemSe
     }
 
     public void saveNameToSP(Player p){
-        SharedPreferences prefs = getSharedPreferences(EndActivity.GAME_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         String recentNames = prefs.getString(Fragment2.KEY_NAME, "unknown user");
         recentNames = recentNames +"\n"+ p.getName() ;

@@ -15,6 +15,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -27,6 +29,9 @@ public class EndActivity extends AppCompatActivity {
     public static final String GAME_PREFS = "ArithmeticFile";
     public static final String KEY_NOT_FIRST_GAME = "KEY_NOT_FIRST_GAME";
     public static final String KEY_NEW_NUMBER_OF_LANES = "KEY_NEW_NUMBER_OF_LANES";
+    public static ArrayList<Player> allPlayers= new ArrayList<Player>();
+    Gson gson = new Gson();
+    String curName,curScore;
     TextView END_score;
     Button BTN_END_start_new_game;
     Button BTN_END_goto_menu;
@@ -37,7 +42,7 @@ public class EndActivity extends AppCompatActivity {
     private SharedPreferences gamePrefs;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -61,6 +66,8 @@ public class EndActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openMainActivity();
+                setAllNames(allPlayers);
+                setAllScores(allPlayers);
             }
         });
 
@@ -68,6 +75,8 @@ public class EndActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openStartActivity();
+                setAllNames(allPlayers);
+                setAllScores(allPlayers);
             }
         });
 
@@ -95,7 +104,39 @@ public class EndActivity extends AppCompatActivity {
         recentData = recentData +"\n"+ p.getScore() ;
         editor.putString(Fragment2.KEY_SCORE, recentData);
         editor.commit();
-        //highScores.add(finalScoreString);
+    }
+
+    public void setAllScores(ArrayList<Player> allP) {
+        String allScores = gamePrefs.getString(Fragment2.KEY_SCORE, null);
+        String[] allScoresArr = allScores.split("\n");
+        int numberOfScores = allScoresArr.length;
+        int SPnumOfLines = gamePrefs.getInt("KEY_NUM_OF_LINES",0);
+        curScore = allScoresArr[numberOfScores-1];
+        Player curPlayer = new Player();
+        curPlayer.setName(curName);
+        curPlayer.setScore(curScore);
+        if (allP.size()>=10) {
+            if (Integer.parseInt(curScore) > Integer.parseInt(allP.get(9).getScore()))
+                allP.set(9,curPlayer);
+        }else
+            allP.add(curPlayer);
+        SPnumOfLines++;
+        if (SPnumOfLines > 9)
+            SPnumOfLines = 9;
+        if (allP != null) {
+            String allPlayersJson = gson.toJson(allP);
+            gamePrefs.edit().putString("JSON_PLAYERS", allPlayersJson);
+            gamePrefs.edit().commit();
+        }
+    }
+
+
+
+    public void setAllNames(ArrayList<Player> allP){
+        String allNames = gamePrefs.getString(Fragment2.KEY_NAME, "unknown user");
+        String[] allNamesArr = allNames.split("\n");
+        int numberOfNames = allNamesArr.length;
+        curName = allNamesArr[numberOfNames-1];
     }
     @Override
     protected void onStop() {
@@ -110,8 +151,5 @@ public class EndActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        /*gamePrefs.edit().clear();
-        gamePrefs.edit().commit();*/
-
     }
 }
