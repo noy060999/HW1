@@ -5,14 +5,17 @@ import android.widget.TextView;
 class Player implements Comparable{
         private String name;
         private String score;
+        private double latitude,longitude;
         /*private String location;
         private TextView nameTV;
         private TextView scoreTV;
         private TextView locationTV;*/
 
-        public Player(String name, String score, String location){
+        public Player(String name, String score, double longitude, double latitude){
             this.name = name;
             this.score = score;
+            this.longitude = longitude;
+            this.latitude = latitude;
             //this.location = location;
         }
         public Player(){
@@ -27,6 +30,22 @@ class Player implements Comparable{
             return score;
         }
 
+        public double getLatitude (){
+            return this.latitude;
+        }
+
+        public double getLongitude(){
+            return this.longitude;
+        }
+
+        public void setLatitude(double latitude){
+            this.latitude = latitude;
+        }
+
+        public void setLongitude(double longitude){
+            this.longitude = longitude;
+        }
+
        /* public String getLocation(){
             return location;
         }*/
@@ -38,34 +57,6 @@ class Player implements Comparable{
         public void setScore(String score) {
             this.score = score;
         }
-
-       /* public void setLocation(String location) {
-            this.location = location;
-        }
-
-        public void setNameTXTVIEW(TextView nameTV){
-            this.nameTV = nameTV;
-        }
-
-    public void setScoreTV(TextView scoreTV) {
-        this.scoreTV = scoreTV;
-    }
-
-    public void setLocationTV(TextView locationTV) {
-        this.locationTV = locationTV;
-    }
-
-    public TextView getNameTV() {
-        return nameTV;
-    }
-
-    public TextView getScoreTV() {
-        return scoreTV;
-    }
-
-    public TextView getLocationTV() {
-        return locationTV;
-    }*/
 
     @Override
     public int compareTo(Object o) {

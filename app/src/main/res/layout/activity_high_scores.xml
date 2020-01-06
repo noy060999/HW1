@@ -11,20 +11,22 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/back"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"/>
-
-    <fragment
-        android:name="com.example.hw_1.Fragment1"
-        android:layout_width="match_parent"
-        android:layout_height="363dp"
-        android:id="@+id/content_fragment1_map" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"/>
 
     <fragment
         android:name="com.example.hw_1.Fragment2"
         android:layout_width="match_parent"
-        android:layout_height="362dp"
+        android:layout_height="363dp"
+        android:id="@+id/content_fragment2_table" />
+
+    <fragment
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="365dp"
         android:layout_marginTop="363dp"
-        android:id="@+id/content_fragment2_table"/>
+        android:id="@+id/content_fragment1_map"/>
 
 </RelativeLayout>

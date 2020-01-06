@@ -4,4 +4,25 @@
         <item>3</item>
         <item>5</item>
     </string-array>
+    <string name="end_game_over">Game Over!!</string>
+    <string name="end_final_score">final score:</string>
+    <string name="end_start_new_game">Start new game</string>
+    <string name="end_start_menu">Start menu</string>
+    <string name="start_start_game">Start game</string>
+    <string name="start_settings">settings</string>
+    <string name="start_best_scores">best scores</string>
+    <string name="start_enter_your_name">enter your name</string>
+    <string name="main_score">score</string>
+    <string name="highScores_name">name</string>
+    <string name="highScores_score">score</string>
+    <string name="popup_new_game">new game</string>
+    <string name="popup_resume_game">resume game</string>
+    <string name="popup_pause">pause</string>
+    <string name="popupSettings_settings">settings</string>
+    <string name="popupSettings_mute">mute</string>
+    <string name="popupSettings_tilt">tilt the phone to move</string>
+    <string name="popupSettings_lanes">number of lanes</string>
+    <string name="popupSettings_ok">ok</string>
+    <string name="highScores_emptyString"> </string>
+
 </resources>

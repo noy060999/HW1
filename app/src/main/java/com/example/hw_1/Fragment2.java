@@ -3,15 +3,20 @@ package com.example.hw_1;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -24,17 +29,20 @@ import java.util.Map;
 import static android.content.Context.MODE_PRIVATE;
 
 public class Fragment2 extends Fragment {
-    public static ArrayList<Player> allPlayersSorted= new ArrayList<Player>();
+   // public static ArrayList<Player> allPlayersSorted= new ArrayList<Player>();
     //public static ArrayList<Player> allPlayers= new ArrayList<Player>();
     public static final String KEY_NAME = "KEY_NAME35";
     public static final String KEY_SCORE = "KEY_SCORE35";
+    public static final ArrayList<Button> pins = new ArrayList<>();
     public static int numberOfLines = 0;
-    String lastScore,lastName;
+    int i;
+    GoogleMap googleMap;
     SharedPreferences prefs;
     String curName;
-    String curScore;
     ArrayList<TextView> namesTV = new ArrayList<TextView>();
     ArrayList<TextView> scoresTV = new ArrayList<TextView>();
+    ArrayList<Player> allPlayers = EndActivity.allPlayers;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,29 +72,40 @@ public class Fragment2 extends Fragment {
         scoresTV.add((TextView) view.findViewById(R.id.fragment2_TXT_score9));
         scoresTV.add((TextView) view.findViewById(R.id.fragment2_TXT_score10));
 
+        pins.add((Button) view.findViewById(R.id.pin1));
+        pins.add((Button) view.findViewById(R.id.pin2));
+        pins.add((Button) view.findViewById(R.id.pin3));
+        pins.add((Button) view.findViewById(R.id.pin4));
+        pins.add((Button) view.findViewById(R.id.pin5));
+        pins.add((Button) view.findViewById(R.id.pin6));
+        pins.add((Button) view.findViewById(R.id.pin7));
+        pins.add((Button) view.findViewById(R.id.pin8));
+        pins.add((Button) view.findViewById(R.id.pin9));
+        pins.add((Button) view.findViewById(R.id.pin10));
+        setDimensions();
+
+            pins.get(0).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //HighScoresActivity.showSpecificLocation(googleMap,0);
+                }
+            });
+
         String[] arrayOfNames;
         String[] arrayOfScoresString;
         ArrayList<Integer> arrayOfScoresInt = new ArrayList<Integer>();
         ArrayList<String> arrayListNames = new ArrayList<String>();
         prefs = getContext().getSharedPreferences(EndActivity.GAME_PREFS, MODE_PRIVATE);
-        ArrayList<Player> allPlayers;
+        ArrayList<Player> allPlayersJson;
         Type type = new TypeToken<ArrayList<Player>>(){}.getType();
-        String allPlayersJson1 = prefs.getString("JSON_PLAYERS","N/A");
-        //Gson gson = new Gson();
-        if (allPlayersJson1 != "N/A")
-            allPlayers = new Gson().fromJson(allPlayersJson1,type);
-        else
-            allPlayers = null;
+        String jsonString = prefs.getString(EndActivity.KEY_JSON,null);
+        Gson gson = new Gson();
+        allPlayersJson = gson.fromJson(jsonString,type);
+        if (allPlayersJson == null)
+            allPlayersJson = new ArrayList<>();
 
-        //getNameFromSP();
-        //getScoreFromSP();
-        //setAllNames(allPlayers);
-        //setAllScores(allPlayers);
-        sortByScore(EndActivity.allPlayers);
-        putValuesToTable(EndActivity.allPlayers);
-
-
-        //setAllLocation();
+        sortByScore(allPlayers);
+        putValuesToTable(allPlayers);
         return view;
     }
 
@@ -99,26 +118,6 @@ public class Fragment2 extends Fragment {
         }
     }
 
-    /*public void getScoreFromSP() {
-        String allScores = prefs.getString(KEY_SCORE, null);
-        String[] allScoresArr = allScores.split("\n");
-        int numberOfScores = allScoresArr.length;
-        int SPnumOfLines = prefs.getInt("KEY_NUM_OF_LINES",0);
-        curScore = allScoresArr[numberOfScores-1];
-        Player curPlayer = new Player();
-        curPlayer.setName(curName);
-        curPlayer.setScore(curScore);
-        curPlayer.setNameTXTVIEW(namesTV.get(SPnumOfLines));
-        curPlayer.setScoreTV(scoresTV.get(SPnumOfLines));
-        if (EndActivity.allPlayers.size()>=10) {
-            if (Integer.parseInt(curScore) > Integer.parseInt(EndActivity.allPlayers.get(9).getScore()))
-                EndActivity.allPlayers.set(9,curPlayer);
-        }else
-            EndActivity.allPlayers.add(curPlayer);
-        SPnumOfLines++;
-        if (SPnumOfLines > 9)
-            SPnumOfLines = 9;
-    }*/
 
     public void getNameFromSP(){
         SharedPreferences prefs = getContext().getSharedPreferences(EndActivity.GAME_PREFS, MODE_PRIVATE);
@@ -133,12 +132,19 @@ public class Fragment2 extends Fragment {
     }
 
     public void sortByScore(ArrayList<Player> allP){
-        //for (int i=0; i<allP.size(); i++)
-          //allPlayersSorted.add(allP.get(i));
         if (allP!=null)
             Collections.sort(allP,Collections.<Player>reverseOrder());
     }
 
+    public void setDimensions(){
+        int pinH = 55;
+        int pinW = pinH;
+        for (int i=0; i<pins.size(); i++){
+            pins.get(i).requestLayout();
+            pins.get(i).getLayoutParams().height = pinH;
+            pins.get(i).getLayoutParams().width = pinW;
+        }
+    }
     @Override
     public void onDestroy() {
         super.onDestroy();

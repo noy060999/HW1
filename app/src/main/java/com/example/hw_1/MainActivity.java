@@ -20,6 +20,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.GridLayout;
@@ -304,10 +307,21 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkLost(){
         if (numberOfLives > 1){
+            RotateAnimation anim = new RotateAnimation(0f, 350f, 15f, 15f);
+            anim.setInterpolator(new LinearInterpolator());
+            anim.setRepeatCount(1);
+            anim.setDuration(150);
+            lives[numberOfLives-1].startAnimation(anim);
             lives[numberOfLives-1].setVisibility(View.INVISIBLE);
             numberOfLives--;
         }
         else {
+            RotateAnimation anim = new RotateAnimation(0f, 350f, 15f, 15f);
+            anim.setInterpolator(new LinearInterpolator());
+            anim.setRepeatCount(1);
+            anim.setDuration(150);
+            lives[numberOfLives-1].startAnimation(anim);
+            lives[numberOfLives-1].setVisibility(View.INVISIBLE);
             isGame = false;
             isFirstGame = false;
             openEndPage();

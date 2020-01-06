@@ -11,6 +11,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class StartActivity extends AppCompatActivity implements Spinner.OnItemSelectedListener{
@@ -45,8 +47,9 @@ public class StartActivity extends AppCompatActivity implements Spinner.OnItemSe
     boolean tiltIsChecked = false;
     String playerName;
     boolean isClicked = false;
-    Player player = new Player(null,null,null);
+    Player player = new Player(null,null,0,0);
     SharedPreferences prefs;
+    private int screenH,screenW;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,19 +67,6 @@ public class StartActivity extends AppCompatActivity implements Spinner.OnItemSe
         startSound = MediaPlayer.create(this.getApplicationContext(),R.raw.background_music);
         startSound.start();
         start_EDT_name = findViewById(R.id.start_EDT_name);
-        BTN_setName = findViewById(R.id.BTN_setName);
-        BTN_setName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                playerName = start_EDT_name.getText() + "";
-                if (playerName == "" || playerName == null || playerName == " ")
-                    playerName = "unknown user";
-                Toast.makeText(getBaseContext(), "name saved!", Toast.LENGTH_SHORT).show();
-                player.setName(playerName);
-                saveNameToSP(player);
-            }
-        });
-
         BTN_settings = findViewById(R.id.BTN_settings);
         BTN_highScores = findViewById(R.id.BTN_highScores);
         BTN_highScores.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +82,12 @@ public class StartActivity extends AppCompatActivity implements Spinner.OnItemSe
         BTN_start_game.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                playerName = start_EDT_name.getText() + "";
+                if (playerName == "" || playerName == null || playerName == " ")
+                    playerName = "unknown user";
+                Toast.makeText(getBaseContext(), "name saved!", Toast.LENGTH_SHORT).show();
+                player.setName(playerName);
+                saveNameToSP(player);
                 openNewActivity();
             }
         });
@@ -102,10 +98,31 @@ public class StartActivity extends AppCompatActivity implements Spinner.OnItemSe
                 openPopupWindowSettings(v);
             }
         });
+        setDimensions();
         startLoopFunc();
     }
 
     // functions :
+    private void setDimensions() {
+        ImageView start_LOGO = findViewById(R.id.start_LOGO);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        screenH = displayMetrics.heightPixels - playerPics[0].getHeight() - start_LOGO.getHeight();
+        screenW = displayMetrics.widthPixels;
+        int buttonH = (screenH-800) / 3;
+        int textH = buttonH;
+
+        BTN_start_game.requestLayout();
+        BTN_start_game.getLayoutParams().height = buttonH;
+        BTN_settings.requestLayout();
+        BTN_settings.getLayoutParams().height = buttonH;
+        BTN_highScores.requestLayout();
+        BTN_highScores.getLayoutParams().height = buttonH;
+        TextView start_TXT_entername = findViewById(R.id.start_TXT_entername);
+        start_TXT_entername.requestLayout();
+        start_TXT_entername.getLayoutParams().height = textH;
+    }
+
     private void openNewActivity(){
         Intent intent = new Intent (this, MainActivity.class);
         Bundle extras = new Bundle();

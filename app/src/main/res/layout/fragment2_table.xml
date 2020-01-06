@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="340dp"
     android:layout_height="match_parent"
-    android:stretchColumns="0,1,2"
+    android:stretchColumns="0,1"
     android:gravity="center">
     <TableRow
         android:background="#FFFFFF"
@@ -33,11 +36,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=" Name "
+            android:text="@string/highScores_name"
+            android:fontFamily="@font/walyer"
             android:textSize="15sp"
             android:layout_margin="1dp"
             android:layout_column="0"
-            android:background="#FFFFFF"
+            android:background="#C6FF9100"
             android:textStyle="bold"
             android:gravity="center"
             />
@@ -46,11 +50,12 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Score "
+            android:text="@string/highScores_score"
+            android:fontFamily="@font/walyer"
             android:textSize="15sp"
             android:layout_margin="1dp"
             android:layout_column="1"
-            android:background="#FFFFFF"
+            android:background="#C6FF9100"
             android:gravity="center"
             android:textStyle="bold"
             />
@@ -58,15 +63,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Location"
-            android:textSize="15sp"
-            android:layout_margin="1dp"
-            android:background="#FFFFFF"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:layout_column="2"
-            />
+            android:background="#C6FF9100"
+            android:layout_column="2"/>
+
     </TableRow>
 
     <TableRow
@@ -82,11 +81,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=" "
+            android:text="@string/highScores_emptyString"
             android:textSize="10sp"
             android:layout_margin="1dp"
             android:layout_column="0"
-            android:background="#FFFFFF"
+            android:background="#F7EDA4"
             android:gravity="center"
             />
 
@@ -95,25 +94,14 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=" "
+            android:text="@string/highScores_emptyString"
             android:textSize="10sp"
             android:layout_margin="1dp"
             android:layout_column="1"
-            android:background="#FFFFFF"
+            android:background="#F7EDA4"
             android:gravity="center"
             />
 
-        <TextView
-            android:id="@+id/fragment2_TXT_location1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=" "
-            android:textSize="10sp"
-            android:layout_margin="1dp"
-            android:background="#FFFFFF"
-            android:gravity="center"
-            android:layout_column="2" />
     </TableRow>
 
 
@@ -131,7 +119,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=" "
+            android:text="@string/highScores_emptyString"
             android:textSize="10sp"
             android:layout_margin="1dp"
             android:layout_column="0"
@@ -144,7 +132,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=" "
+            android:text="@string/highScores_emptyString"
             android:textSize="10sp"
             android:layout_margin="1dp"
             android:layout_column="1"
@@ -152,17 +140,6 @@
             android:gravity="center"
             />
 
-        <TextView
-            android:id="@+id/fragment2_TXT_location2"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=" "
-            android:textSize="10sp"
-            android:layout_margin="1dp"
-            android:background="#FFFFFF"
-            android:gravity="center"
-            android:layout_column="2" />
     </TableRow>
 
     <TableRow
@@ -178,11 +155,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=" "
+            android:text="@string/highScores_emptyString"
             android:textSize="10sp"
             android:layout_margin="1dp"
             android:layout_column="0"
-            android:background="#FFFFFF"
+            android:background="#F7EDA4"
             android:gravity="center"
             />
 
@@ -191,25 +168,13 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=""
+            android:text="@string/highScores_emptyString"
             android:textSize="10sp"
             android:layout_margin="1dp"
             android:layout_column="1"
-            android:background="#FFFFFF"
+            android:background="#F7EDA4"
             android:gravity="center"
             />
-
-        <TextView
-            android:id="@+id/fragment2_TXT_location3"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=""
-            android:textSize="10sp"
-            android:layout_margin="1dp"
-            android:background="#FFFFFF"
-            android:gravity="center"
-            android:layout_column="2" />
     </TableRow>
 
     <TableRow
@@ -225,7 +190,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=" "
+            android:text="@string/highScores_emptyString"
             android:textSize="10sp"
             android:layout_margin="1dp"
             android:layout_column="0"
@@ -238,7 +203,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=""
+            android:text="@string/highScores_emptyString"
             android:textSize="10sp"
             android:layout_margin="1dp"
             android:layout_column="1"
@@ -246,17 +211,6 @@
             android:gravity="center"
             />
 
-        <TextView
-            android:id="@+id/fragment2_TXT_location4"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=""
-            android:textSize="10sp"
-            android:layout_margin="1dp"
-            android:background="#FFFFFF"
-            android:gravity="center"
-            android:layout_column="2" />
     </TableRow>
     <TableRow
         android:background="#000000"
@@ -271,11 +225,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=" "
+            android:text="@string/highScores_emptyString"
             android:textSize="10sp"
             android:layout_margin="1dp"
             android:layout_column="0"
-            android:background="#FFFFFF"
+            android:background="#F7EDA4"
             android:gravity="center"
             />
 
@@ -284,25 +238,14 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=""
+            android:text="@string/highScores_emptyString"
             android:textSize="10sp"
             android:layout_margin="1dp"
             android:layout_column="1"
-            android:background="#FFFFFF"
+            android:background="#F7EDA4"
             android:gravity="center"
             />
 
-        <TextView
-            android:id="@+id/fragment2_TXT_location5"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=""
-            android:textSize="10sp"
-            android:layout_margin="1dp"
-            android:background="#FFFFFF"
-            android:gravity="center"
-            android:layout_column="2" />
     </TableRow>
     <TableRow
         android:background="#000000"
@@ -317,7 +260,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=" "
+            android:text="@string/highScores_emptyString"
             android:textSize="10sp"
             android:layout_margin="1dp"
             android:layout_column="0"
@@ -330,7 +273,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=""
+            android:text="@string/highScores_emptyString"
             android:textSize="10sp"
             android:layout_margin="1dp"
             android:layout_column="1"
@@ -338,17 +281,6 @@
             android:gravity="center"
             />
 
-        <TextView
-            android:id="@+id/fragment2_TXT_location6"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=""
-            android:textSize="10sp"
-            android:layout_margin="1dp"
-            android:background="#FFFFFF"
-            android:gravity="center"
-            android:layout_column="2" />
     </TableRow>
     <TableRow
         android:background="#000000"
@@ -363,11 +295,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=" "
+            android:text="@string/highScores_emptyString"
             android:textSize="10sp"
             android:layout_margin="1dp"
             android:layout_column="0"
-            android:background="#FFFFFF"
+            android:background="#F7EDA4"
             android:gravity="center"
             />
 
@@ -376,25 +308,14 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=""
+            android:text="@string/highScores_emptyString"
             android:textSize="10sp"
             android:layout_margin="1dp"
             android:layout_column="1"
-            android:background="#FFFFFF"
+            android:background="#F7EDA4"
             android:gravity="center"
             />
 
-        <TextView
-            android:id="@+id/fragment2_TXT_location7"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=""
-            android:textSize="10sp"
-            android:layout_margin="1dp"
-            android:background="#FFFFFF"
-            android:gravity="center"
-            android:layout_column="2" />
     </TableRow>
     <TableRow
         android:background="#000000"
@@ -409,7 +330,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=" "
+            android:text="@string/highScores_emptyString"
             android:textSize="10sp"
             android:layout_margin="1dp"
             android:layout_column="0"
@@ -422,7 +343,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=""
+            android:text="@string/highScores_emptyString"
             android:textSize="10sp"
             android:layout_margin="1dp"
             android:layout_column="1"
@@ -430,17 +351,6 @@
             android:gravity="center"
             />
 
-        <TextView
-            android:id="@+id/fragment2_TXT_location8"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=""
-            android:textSize="10sp"
-            android:layout_margin="1dp"
-            android:background="#FFFFFF"
-            android:gravity="center"
-            android:layout_column="2" />
     </TableRow>
     <TableRow
         android:background="#000000"
@@ -455,11 +365,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=" "
+            android:text="@string/highScores_emptyString"
             android:textSize="10sp"
             android:layout_margin="1dp"
             android:layout_column="0"
-            android:background="#FFFFFF"
+            android:background="#F7EDA4"
             android:gravity="center"
             />
 
@@ -468,25 +378,14 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=""
+            android:text="@string/highScores_emptyString"
             android:textSize="10sp"
             android:layout_margin="1dp"
             android:layout_column="1"
-            android:background="#FFFFFF"
+            android:background="#F7EDA4"
             android:gravity="center"
             />
 
-        <TextView
-            android:id="@+id/fragment2_TXT_location9"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=""
-            android:textSize="10sp"
-            android:layout_margin="1dp"
-            android:background="#FFFFFF"
-            android:gravity="center"
-            android:layout_column="2" />
     </TableRow>
     <TableRow
         android:background="#000000"
@@ -501,7 +400,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=" "
+            android:text="@string/highScores_emptyString"
             android:textSize="10sp"
             android:layout_margin="1dp"
             android:layout_column="0"
@@ -514,7 +413,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=""
+            android:text="@string/highScores_emptyString"
             android:textSize="10sp"
             android:layout_margin="1dp"
             android:layout_column="1"
@@ -522,16 +421,105 @@
             android:gravity="center"
             />
 
-        <TextView
-            android:id="@+id/fragment2_TXT_location10"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=""
-            android:textSize="10sp"
-            android:layout_margin="1dp"
-            android:background="#FFFFFF"
-            android:gravity="center"
-            android:layout_column="2" />
     </TableRow>
 </TableLayout>
+    <Button
+        android:id="@+id/pin1"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="55dp"
+        android:padding="5dp"
+        android:background="@drawable/pin"/>
+
+    <Button
+        android:id="@+id/pin2"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="3dp"
+        android:padding="5dp"
+        android:layout_below="@id/pin1"
+        android:background="@drawable/pin"/>
+
+    <Button
+        android:id="@+id/pin3"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="3dp"
+        android:padding="5dp"
+        android:layout_below="@id/pin2"
+        android:background="@drawable/pin"/>
+
+    <Button
+        android:id="@+id/pin4"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="3dp"
+        android:padding="5dp"
+        android:layout_below="@id/pin3"
+        android:background="@drawable/pin"/>
+
+    <Button
+        android:id="@+id/pin5"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="3dp"
+        android:padding="5dp"
+        android:layout_below="@id/pin4"
+        android:background="@drawable/pin"/>
+
+    <Button
+        android:id="@+id/pin6"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="3dp"
+        android:padding="5dp"
+        android:layout_below="@id/pin5"
+        android:background="@drawable/pin"/>
+
+    <Button
+        android:id="@+id/pin7"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="3dp"
+        android:padding="5dp"
+        android:layout_below="@id/pin6"
+        android:background="@drawable/pin"/>
+
+    <Button
+        android:id="@+id/pin8"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="3dp"
+        android:padding="5dp"
+        android:layout_below="@id/pin7"
+        android:background="@drawable/pin"/>
+
+    <Button
+        android:id="@+id/pin9"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="3dp"
+        android:padding="5dp"
+        android:layout_below="@id/pin8"
+        android:background="@drawable/pin"/>
+
+    <Button
+        android:id="@+id/pin10"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="3dp"
+        android:padding="5dp"
+        android:layout_below="@id/pin9"
+        android:background="@drawable/pin"/>
+</RelativeLayout>
+

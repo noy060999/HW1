@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/walyer"
         android:textSize="15sp"
-        android:text="final score:"
+        android:text="@string/end_final_score"
         android:textStyle="bold"
         android:textColor="#FFFFFF"
         android:layout_marginStart="50dp"
@@ -34,9 +34,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/BTN_END_start_new_game"
         android:layout_centerInParent="true"
-        android:text="Start new game"
+        android:text="@string/end_start_new_game"
         android:fontFamily="@font/walyer"
-        android:padding="10dp"
+        android:padding="5dp"
         android:textSize="10sp"
         android:backgroundTint="@color/colorBackground"/>
 
@@ -46,10 +46,10 @@
         android:id="@+id/BTN_END_goto_menu"
         android:layout_below="@+id/BTN_END_start_new_game"
         android:layout_centerInParent="true"
-        android:text="start menu"
+        android:text="@string/end_start_menu"
         android:fontFamily="@font/walyer"
         android:textSize="15sp"
-        android:padding="10dp"
+        android:padding="5dp"
         android:layout_marginTop="5dp"
         android:backgroundTint="@color/colorButtons"/>
 
@@ -58,7 +58,7 @@
         android:id="@+id/END_game_over"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Game Over!!"
+        android:text="@string/end_game_over"
         android:textSize="25sp"
         android:fontFamily="@font/walyer"
         android:textColor="#FFFFFF"
@@ -66,6 +66,7 @@
         android:layout_centerHorizontal="true"/>
 
     <ImageView
+        android:id="@+id/END_stitchSad"
         android:layout_width="320dp"
         android:layout_height="170dp"
         android:layout_alignParentBottom="true"
