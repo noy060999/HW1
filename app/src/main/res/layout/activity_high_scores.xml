@@ -7,7 +7,7 @@
     tools:context=".HighScoresActivity">
 
     <Button
-        android:id="@+id/BTN_back"
+        android:id="@+id/btn_Back"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/back"

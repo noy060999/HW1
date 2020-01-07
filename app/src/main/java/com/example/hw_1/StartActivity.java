@@ -40,8 +40,8 @@ public class StartActivity extends AppCompatActivity implements Spinner.OnItemSe
     int pos = 0;
     ImageView[] playerPics;
     MediaPlayer startSound;
-    Button BTN_settings, BTN_highScores, BTN_setName, BTN_start_game;
-    EditText start_EDT_name;
+    Button btn_Settings, btn_HighScores, btn_StartGame;
+    EditText edt_PutName;
     int lanesNumber;
     int state = 0;
     boolean tiltIsChecked = false;
@@ -63,72 +63,52 @@ public class StartActivity extends AppCompatActivity implements Spinner.OnItemSe
         prefs = getSharedPreferences(GAME_PREFS,0);
 
         unmute();
-        BTN_start_game = findViewById(R.id.BTN_start_game);
+        btn_StartGame = findViewById(R.id.btn_StartGame);
         startSound = MediaPlayer.create(this.getApplicationContext(),R.raw.background_music);
         startSound.start();
-        start_EDT_name = findViewById(R.id.start_EDT_name);
-        BTN_settings = findViewById(R.id.BTN_settings);
-        BTN_highScores = findViewById(R.id.BTN_highScores);
-        BTN_highScores.setOnClickListener(new View.OnClickListener() {
+        edt_PutName = findViewById(R.id.edt_PutName);
+        btn_Settings = findViewById(R.id.btn_Settings);
+        btn_HighScores = findViewById(R.id.btn_HighScores);
+        btn_HighScores.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openScoresActivity();
             }
         });
         playerPics = new ImageView[] {
-                findViewById(R.id.start_STITCH1),findViewById(R.id.start_STITCH2),findViewById(R.id.start_STITCH3)};
+                findViewById(R.id.img_Stitch1),findViewById(R.id.img_Stitch2),findViewById(R.id.img_Stitch3)};
         showPlayerFirstTime();
 
-        BTN_start_game.setOnClickListener(new View.OnClickListener(){
+        btn_StartGame.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                playerName = start_EDT_name.getText() + "";
-                if (playerName == "" || playerName == null || playerName == " ")
+                playerName = edt_PutName.getText() + "";
+                if (playerName == "" || playerName == null || playerName == " ") {
                     playerName = "unknown user";
-                Toast.makeText(getBaseContext(), "name saved!", Toast.LENGTH_SHORT).show();
+                }
+                else
+                    Toast.makeText(getBaseContext(), "name saved!", Toast.LENGTH_SHORT).show();
                 player.setName(playerName);
                 saveNameToSP(player);
                 openNewActivity();
             }
         });
-        BTN_settings.setOnClickListener(new View.OnClickListener(){
+        btn_Settings.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
                 openPopupWindowSettings(v);
             }
         });
-        setDimensions();
         startLoopFunc();
     }
 
     // functions :
-    private void setDimensions() {
-        ImageView start_LOGO = findViewById(R.id.start_LOGO);
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        screenH = displayMetrics.heightPixels - playerPics[0].getHeight() - start_LOGO.getHeight();
-        screenW = displayMetrics.widthPixels;
-        int buttonH = (screenH-800) / 3;
-        int textH = buttonH;
-
-        BTN_start_game.requestLayout();
-        BTN_start_game.getLayoutParams().height = buttonH;
-        BTN_settings.requestLayout();
-        BTN_settings.getLayoutParams().height = buttonH;
-        BTN_highScores.requestLayout();
-        BTN_highScores.getLayoutParams().height = buttonH;
-        TextView start_TXT_entername = findViewById(R.id.start_TXT_entername);
-        start_TXT_entername.requestLayout();
-        start_TXT_entername.getLayoutParams().height = textH;
-    }
-
     private void openNewActivity(){
         Intent intent = new Intent (this, MainActivity.class);
         Bundle extras = new Bundle();
         extras.putInt(KEY_NUM_OF_LANES,lanesNumber);
         extras.putBoolean(KEY_TILT,tiltIsChecked);
-        //intent.putExtra(KEY_NUM_OF_LANES,lanesNumber);
         intent.putExtras(extras);
         startSound.stop();
         startActivity(intent);

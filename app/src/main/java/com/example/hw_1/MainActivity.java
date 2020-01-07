@@ -39,8 +39,8 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     public static final String KEY_SCORE = "KEY_SCORE";
-    private Button main_BUTTON_go_right, main_BUTTON_go_left, main_IMAGEBUTTON_pause;
-    private TextView main_VIEW_score;
+    private Button btn_GoRight, btn_GoLeft, btn_Pause;
+    private TextView txt_Score;
     private ImageView[] players, lives;
     private ImageView[][] obstacles;
     private int positionPlayer = 1, positionObstacleRow = -1, positionObstacleCol = 0;
@@ -83,58 +83,58 @@ public class MainActivity extends AppCompatActivity {
         if (numberOfLanes != 3)
             numberOfLanes = 5;
 
-        main_BUTTON_go_right = findViewById(R.id.main_BUTTON_go_right);
-        main_BUTTON_go_left = findViewById(R.id.main_BUTTON_go_left);
+        btn_GoRight = findViewById(R.id.btn_GoRight);
+        btn_GoLeft = findViewById(R.id.btn_GoLeft);
 
         if (useAccelerator == true){
-            main_BUTTON_go_left.setVisibility(View.INVISIBLE);
-            main_BUTTON_go_right.setVisibility(View.INVISIBLE);
+            btn_GoLeft.setVisibility(View.INVISIBLE);
+            btn_GoRight.setVisibility(View.INVISIBLE);
             sensorManager=(SensorManager) getSystemService(SENSOR_SERVICE);
             mSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
             sensorManager.registerListener(sensorEventListener, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
         }
 
-        main_VIEW_score = findViewById(R.id.main_VIEW_score);
-        main_IMAGEBUTTON_pause = findViewById(R.id.main_IMAGEBUTTON_pause);
+        txt_Score = findViewById(R.id.txt_Score);
+        btn_Pause = findViewById(R.id.btn_Pause);
 
         ouchSound = MediaPlayer.create(getApplicationContext(),R.raw.ouch_sound);
         gameSound = MediaPlayer.create(getApplicationContext(),R.raw.game_sound);
         biteSound = MediaPlayer.create(getApplicationContext(),R.raw.bite);
         gameSound.start();
-        main_BUTTON_go_right.setOnClickListener(new View.OnClickListener() {
+        btn_GoRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 moveRight();
             }
         });
 
-        main_BUTTON_go_left.setOnClickListener(new View.OnClickListener() {
+        btn_GoLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 moveLeft();
             }
         });
 
-        main_IMAGEBUTTON_pause.setOnClickListener(new View.OnClickListener() {
+        btn_Pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 isGame = false;
-                main_BUTTON_go_left.setClickable(false);
-                main_BUTTON_go_right.setClickable(false);
+                btn_GoLeft.setClickable(false);
+                btn_GoRight.setClickable(false);
                 openPopupWindow(v);
             }
         });
 
         lives = new ImageView[]{
-                findViewById(R.id.main_IMAGE_LIVE),
-                findViewById(R.id.main_IMAGE_LIVE2),
-                findViewById(R.id.main_IMAGE_LIVE3)
+                findViewById(R.id.img_Live1),
+                findViewById(R.id.img_Live2),
+                findViewById(R.id.img_Live3)
         };
         if (numberOfLanes == 3) {
             players = new ImageView[]{
-                    findViewById(R.id.main_IMAGE_stitch),
-                    findViewById(R.id.main_IMAGE_stitch2),
-                    findViewById(R.id.main_IMAGE_stitch3)
+                    findViewById(R.id.img_Player1),
+                    findViewById(R.id.img_Player2),
+                    findViewById(R.id.img_Player3)
             };
 
             obstacles = new ImageView[][]{
@@ -147,11 +147,11 @@ public class MainActivity extends AppCompatActivity {
 
         if (numberOfLanes == 5){
             players = new ImageView[]{
-                    findViewById(R.id.main_IMAGE_stitch),
-                    findViewById(R.id.main_IMAGE_stitch2),
-                    findViewById(R.id.main_IMAGE_stitch3),
-                    findViewById(R.id.main_IMAGE_stitch4),
-                    findViewById(R.id.main_IMAGE_stitch5)
+                    findViewById(R.id.img_Player1),
+                    findViewById(R.id.img_Player2),
+                    findViewById(R.id.img_Player3),
+                    findViewById(R.id.img_Player4),
+                    findViewById(R.id.img_Player5)
             };
 
             obstacles = new ImageView[][]{
@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
     private void setDimensions() {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        screenH = displayMetrics.heightPixels - main_BUTTON_go_left.getLayoutParams().height - lives[0].getLayoutParams().height;
+        screenH = displayMetrics.heightPixels - btn_GoLeft.getLayoutParams().height - lives[0].getLayoutParams().height;
         screenW = displayMetrics.widthPixels;
         objectH = screenH/numberOfRows;
         objectW = screenW/numberOfLanes;
@@ -212,18 +212,18 @@ public class MainActivity extends AppCompatActivity {
     private void moveRight(){
         positionPlayer +=1;
         if (positionPlayer >= players.length)
-            positionPlayer = 0;
+            positionPlayer = players.length-1;
         startPlayer();
     }
     private void moveLeft(){
         positionPlayer -=1;
         if (positionPlayer < 0)
-            positionPlayer = players.length - 1;
+            positionPlayer = 0;
         startPlayer();
     }
     private void randObstaclesPos() {
         score+=10;
-        main_VIEW_score.setText("score "+ score);
+        txt_Score.setText("score "+ score);
         if (positionObstacleRow == -1) {
             positionObstacleCol = rand.nextInt(numberOfLanes);
             positionPrizeCol = rand.nextInt(numberOfLanes);
@@ -250,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
             if (positionPlayer == positionPrizeCol) {
                 score += 50;
                 biteSound.start();
-                main_VIEW_score.setText("score "+ score);
+                txt_Score.setText("score "+ score);
                 obstacles[positionPrizeRow - 1][positionPrizeCol].setVisibility(View.INVISIBLE);
                 positionPrizeRow = 0;
                 positionPrizeCol = rand.nextInt(numberOfLanes);
@@ -368,8 +368,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 isGame = true;
-                main_BUTTON_go_left.setClickable(true);
-                main_BUTTON_go_right.setClickable(true);
+                btn_GoLeft.setClickable(true);
+                btn_GoRight.setClickable(true);
                 loopFunc();
                 popupWindow.dismiss();
             }

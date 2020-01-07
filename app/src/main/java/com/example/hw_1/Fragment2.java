@@ -36,12 +36,11 @@ public class Fragment2 extends Fragment {
     public static final ArrayList<Button> pins = new ArrayList<>();
     public static int numberOfLines = 0;
     int i;
-    GoogleMap googleMap;
-    SharedPreferences prefs;
+    SharedPreferences gamePrefs;
     String curName;
     ArrayList<TextView> namesTV = new ArrayList<TextView>();
     ArrayList<TextView> scoresTV = new ArrayList<TextView>();
-    ArrayList<Player> allPlayers = EndActivity.allPlayers;
+    ArrayList<Player> allPlayersGson;
 
 
     @Override
@@ -82,7 +81,7 @@ public class Fragment2 extends Fragment {
         pins.add((Button) view.findViewById(R.id.pin8));
         pins.add((Button) view.findViewById(R.id.pin9));
         pins.add((Button) view.findViewById(R.id.pin10));
-        setDimensions();
+        //setDimensions();
 
             pins.get(0).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -95,50 +94,48 @@ public class Fragment2 extends Fragment {
         String[] arrayOfScoresString;
         ArrayList<Integer> arrayOfScoresInt = new ArrayList<Integer>();
         ArrayList<String> arrayListNames = new ArrayList<String>();
-        prefs = getContext().getSharedPreferences(EndActivity.GAME_PREFS, MODE_PRIVATE);
-        ArrayList<Player> allPlayersJson;
-        Type type = new TypeToken<ArrayList<Player>>(){}.getType();
-        String jsonString = prefs.getString(EndActivity.KEY_JSON,null);
-        Gson gson = new Gson();
-        allPlayersJson = gson.fromJson(jsonString,type);
-        if (allPlayersJson == null)
-            allPlayersJson = new ArrayList<>();
+        gamePrefs = getContext().getSharedPreferences(EndActivity.GAME_PREFS, MODE_PRIVATE);
 
-        sortByScore(allPlayers);
-        putValuesToTable(allPlayers);
+        loadData();
+        sortByScore();
+        putValuesToTable();
         return view;
     }
 
-    private void putValuesToTable(ArrayList<Player> allP) {
-        if (allP!=null) {
-            for (int j = 0; j < allP.size(); j++) {
-                namesTV.get(j).setText(allP.get(j).getName());
-                scoresTV.get(j).setText(allP.get(j).getScore());
+    private void putValuesToTable() {
+        if (allPlayersGson!=null) {
+            for (int j = 0; j < allPlayersGson.size(); j++) {
+                namesTV.get(j).setText(allPlayersGson.get(j).getName());
+                scoresTV.get(j).setText(allPlayersGson.get(j).getScore());
             }
         }
     }
 
+    private void loadData(){
+        Gson gson = new Gson();
+        String json = gamePrefs.getString(EndActivity.KEY_JSON,null);
+        Type type = new TypeToken<ArrayList<Player>>(){}.getType();
+        allPlayersGson = gson.fromJson(json,type);
 
-    public void getNameFromSP(){
-        SharedPreferences prefs = getContext().getSharedPreferences(EndActivity.GAME_PREFS, MODE_PRIVATE);
-        String allNames = prefs.getString(KEY_NAME, "unknown user");
-        String[] allNamesArr = allNames.split("\n");
-        int numberOfNames = allNamesArr.length;
-        curName = allNamesArr[numberOfNames-1];
+        if (allPlayersGson == null)
+            allPlayersGson = new ArrayList<>();
     }
 
-    public void setAllLocation(){
-
-    }
-
-    public void sortByScore(ArrayList<Player> allP){
-        if (allP!=null)
-            Collections.sort(allP,Collections.<Player>reverseOrder());
+    public void sortByScore(){
+        if (allPlayersGson!=null)
+            Collections.sort(allPlayersGson,Collections.<Player>reverseOrder());
     }
 
     public void setDimensions(){
-        int pinH = 55;
-        int pinW = pinH;
+        TableLayout table = getView().findViewById(R.id.content_fragment2_table);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        int tableH = displayMetrics.heightPixels;
+        int tableW = displayMetrics.widthPixels - 55;
+        int pinH = tableH/10;
+        int pinW = displayMetrics.heightPixels - tableW;
+        table.requestLayout();
+        table.getLayoutParams().height = tableH;
+        table.getLayoutParams().width = tableW;
         for (int i=0; i<pins.size(); i++){
             pins.get(i).requestLayout();
             pins.get(i).getLayoutParams().height = pinH;
@@ -148,7 +145,5 @@ public class Fragment2 extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        prefs.edit().putInt("KEY_NUM_OF_LINES",numberOfLines);
-        prefs.edit().commit();
     }
 }

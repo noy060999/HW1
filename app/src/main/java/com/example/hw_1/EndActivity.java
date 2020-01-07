@@ -48,18 +48,15 @@ import java.util.Set;
 public class EndActivity extends AppCompatActivity {
 
     public static final String GAME_PREFS = "ArithmeticFile";
-    public static final String KEY_NOT_FIRST_GAME = "KEY_NOT_FIRST_GAME";
     public static final String KEY_NEW_NUMBER_OF_LANES = "KEY_NEW_NUMBER_OF_LANES";
-    public static final String KEY_JSON = "KEY_JSON";
-    public static ArrayList<Player> allPlayers= new ArrayList<Player>();
-    ArrayList<Player> listGSON = new ArrayList<>();
+    public static final String KEY_JSON = "KEY_JSON_FINAL";
+    ArrayList<Player> allPlayers;
     String curName,curScore;
     double lat,lon;
     private FusedLocationProviderClient mFusedLocationClient;
     private int PERMISSION_ID = 20;
-    TextView END_score;
-    Button BTN_END_start_new_game;
-    Button BTN_END_goto_menu;
+    TextView txt_FinalScore;
+    Button btnEnd_StartNewGame, btnEnd_GoToMenu;
     int numberOfLanes, finalScore;
     String finalScoreString;
     private SharedPreferences gamePrefs;
@@ -77,61 +74,37 @@ public class EndActivity extends AppCompatActivity {
         Bundle extras = intent.getExtras();
         finalScore = extras.getInt(MainActivity.KEY_SCORE);
         numberOfLanes = extras.getInt(StartActivity.KEY_NUM_OF_LANES);
-        END_score = findViewById(R.id.END_score);
+        txt_FinalScore = findViewById(R.id.txt_FinalScore);
         gamePrefs=getSharedPreferences(GAME_PREFS, 0);
         finalScoreString = finalScore + "";
-        END_score.setText("final Score: "+ finalScore);
+        txt_FinalScore.setText("final Score: "+ finalScore);
         Player player = new Player(gamePrefs.getString(Fragment2.KEY_NAME,"unknown user"),finalScoreString,0,0);
         saveScoreToSP(player);
-        BTN_END_start_new_game = findViewById(R.id.BTN_END_start_new_game);
-        BTN_END_goto_menu = findViewById(R.id.BTN_END_goto_menu);
-        BTN_END_start_new_game.setOnClickListener(new View.OnClickListener() {
+        btnEnd_StartNewGame = findViewById(R.id.btnEnd_StartNewGame);
+        btnEnd_GoToMenu = findViewById(R.id.btnEnd_GoToMenu);
+        btnEnd_StartNewGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loadData();
+                saveData();
                 openMainActivity();
-                setAllNames(allPlayers);
-                setAllScores(allPlayers);
-                getListGsonFromSP(allPlayers);
             }
         });
 
-        BTN_END_goto_menu.setOnClickListener(new View.OnClickListener() {
+        btnEnd_GoToMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loadData();
+                saveData();
                 openStartActivity();
-                getListGsonFromSP(allPlayers);
-                setAllNames(allPlayers);
-                setAllScores(allPlayers);
             }
         });
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         getLastLocation();
-        setDimensions();
-
     }
 
     //functions:
-    private void setDimensions() {
-        ImageView logo = findViewById(R.id.logo);
-        TextView END_game_over = findViewById(R.id.END_game_over);
-        TextView END_score = findViewById(R.id.END_score);
-        ImageView END_stitchSad = findViewById(R.id.END_stitchSad);
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int screenH = displayMetrics.heightPixels - logo.getHeight() - END_game_over.getHeight() - END_stitchSad.getHeight();
-        int screenW = displayMetrics.widthPixels;
-        int buttonH = 175;
-        int scoreH = buttonH;
-
-        BTN_END_goto_menu.requestLayout();
-        BTN_END_goto_menu.getLayoutParams().height = buttonH;
-        BTN_END_start_new_game.requestLayout();
-        BTN_END_start_new_game.getLayoutParams().height = buttonH;
-        END_score.requestLayout();
-        END_score.getLayoutParams().height = scoreH;
-    }
-
     public void openMainActivity(){
         Intent intent = new Intent(this,MainActivity.class);
         Bundle extras = new Bundle();
@@ -151,60 +124,48 @@ public class EndActivity extends AppCompatActivity {
         String recentData = gamePrefs.getString(Fragment2.KEY_SCORE, null);
         recentData = recentData +"\n"+ p.getScore() ;
         editor.putString(Fragment2.KEY_SCORE, recentData);
-        editor.commit();
+        editor.apply();
     }
 
-    public void getListGsonFromSP(ArrayList<Player> allP){
-        SharedPreferences.Editor editor = getSharedPreferences(GAME_PREFS, MODE_PRIVATE).edit();
-        String jsonString = gamePrefs.getString(KEY_JSON,null);
-        Gson json = new Gson();
+    public void saveData(){
+        SharedPreferences.Editor editor = gamePrefs.edit();
+        setCurScore();
+        Gson gson = new Gson();
+        String json = gson.toJson(allPlayers);
+        editor.putString(KEY_JSON,json);
+        editor.apply();
+    }
+
+    private void loadData(){
+        Gson gson = new Gson();
+        String json = gamePrefs.getString(EndActivity.KEY_JSON,null);
         Type type = new TypeToken<ArrayList<Player>>(){}.getType();
-        listGSON = json.fromJson(jsonString,type);
-        /*for (int i=0; i<allP.size(); i++){
-            listGSON.add(allP.get(i));
-        }*/
+        allPlayers = gson.fromJson(json,type);
+
+        if (allPlayers == null)
+            allPlayers = new ArrayList<>();
     }
 
-    public void setAllScores(ArrayList<Player> allP) {
+    public void setCurScore() {
+        setCurName();
         String allScores = gamePrefs.getString(Fragment2.KEY_SCORE, null);
         String[] allScoresArr = allScores.split("\n");
         int numberOfScores = allScoresArr.length;
-        int SPnumOfLines = gamePrefs.getInt("KEY_NUM_OF_LINES",0);
         curScore = allScoresArr[numberOfScores-1];
         Player curPlayer = new Player();
         curPlayer.setName(curName);
         curPlayer.setScore(curScore);
         curPlayer.setLatitude(lat);
         curPlayer.setLongitude(lon);
-        if (allP != null) {
-            if (allP.size() >= 10) {
-                if (Integer.parseInt(curScore) > Integer.parseInt(allP.get(9).getScore()))
-                    allP.set(9, curPlayer);
-            } else {
-                allP.add(curPlayer);
-            }
+        if (allPlayers.size() >= 10) {
+            if (Integer.parseInt(curScore) > Integer.parseInt(allPlayers.get(9).getScore()))
+                allPlayers.set(9, curPlayer);
+        }   else {
+                allPlayers.add(curPlayer);
         }
-        else {
-            allP = new ArrayList<>();
-            allP.add(curPlayer);
-        }
-        Gson myGson = new Gson();
-        String jsonString = myGson.toJson(allP);
-        gamePrefs.edit().putString(KEY_JSON,jsonString);
-        gamePrefs.edit().commit();
-        SPnumOfLines++;
-        if (SPnumOfLines > 9)
-            SPnumOfLines = 9;
-        /*if (allP != null) {
-            String allPlayersJson = gson.toJson(allP);
-            gamePrefs.edit().putString("JSON_PLAYERS", allPlayersJson);
-            gamePrefs.edit().commit();
-        }*/
     }
 
-
-
-    public void setAllNames(ArrayList<Player> allP){
+    public void setCurName(){
         String allNames = gamePrefs.getString(Fragment2.KEY_NAME, "unknown user");
         String[] allNamesArr = allNames.split("\n");
         int numberOfNames = allNamesArr.length;

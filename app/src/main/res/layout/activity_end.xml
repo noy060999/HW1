@@ -8,7 +8,7 @@
     tools:context=".EndActivity">
 
     <ImageView
-        android:id="@+id/logo"
+        android:id="@+id/end_Logo"
         android:layout_width="380dp"
         android:layout_height="120dp"
         android:layout_marginTop="15dp"
@@ -18,7 +18,7 @@
         android:background="@drawable/logo"/>
 
     <TextView
-        android:id="@+id/END_score"
+        android:id="@+id/txt_FinalScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/walyer"
@@ -27,46 +27,46 @@
         android:textStyle="bold"
         android:textColor="#FFFFFF"
         android:layout_marginStart="50dp"
-        android:layout_below="@id/END_game_over"/>
+        android:layout_below="@id/txt_GameOverMsg"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/BTN_END_start_new_game"
+        android:id="@+id/btnEnd_StartNewGame"
         android:layout_centerInParent="true"
         android:text="@string/end_start_new_game"
         android:fontFamily="@font/walyer"
-        android:padding="5dp"
+        android:padding="10dp"
         android:textSize="10sp"
         android:backgroundTint="@color/colorBackground"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/BTN_END_goto_menu"
-        android:layout_below="@+id/BTN_END_start_new_game"
+        android:id="@+id/btnEnd_GoToMenu"
+        android:layout_below="@+id/btnEnd_StartNewGame"
         android:layout_centerInParent="true"
         android:text="@string/end_start_menu"
         android:fontFamily="@font/walyer"
         android:textSize="15sp"
-        android:padding="5dp"
+        android:padding="10dp"
         android:layout_marginTop="5dp"
         android:backgroundTint="@color/colorButtons"/>
 
 
     <TextView
-        android:id="@+id/END_game_over"
+        android:id="@+id/txt_GameOverMsg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/end_game_over"
         android:textSize="25sp"
         android:fontFamily="@font/walyer"
         android:textColor="#FFFFFF"
-        android:layout_below="@id/logo"
+        android:layout_below="@id/end_Logo"
         android:layout_centerHorizontal="true"/>
 
     <ImageView
-        android:id="@+id/END_stitchSad"
+        android:id="@+id/img_SadStitch"
         android:layout_width="320dp"
         android:layout_height="170dp"
         android:layout_alignParentBottom="true"

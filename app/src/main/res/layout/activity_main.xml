@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/main_IMAGE_LIVE"
+        android:id="@+id/img_Live1"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
@@ -18,37 +18,37 @@
         android:src="@drawable/ic_heart" />
 
     <ImageView
-        android:id="@+id/main_IMAGE_LIVE2"
+        android:id="@+id/img_Live2"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/main_IMAGE_LIVE"
+        android:layout_toStartOf="@+id/img_Live1"
         android:layout_marginEnd="3dp"
         android:layout_marginTop="3dp"
         android:src="@drawable/ic_heart" />
 
     <ImageView
-        android:id="@+id/main_IMAGE_LIVE3"
+        android:id="@+id/img_Live3"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/main_IMAGE_LIVE2"
+        android:layout_toStartOf="@+id/img_Live2"
         android:layout_marginEnd="3dp"
         android:layout_marginTop="3dp"
         android:src="@drawable/ic_heart" />
 
 
     <Button
-        android:id="@+id/main_IMAGEBUTTON_pause"
+        android:id="@+id/btn_Pause"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_toStartOf="@id/main_IMAGE_LIVE3"
+        android:layout_toStartOf="@id/img_Live3"
         android:layout_marginTop="7dp"
         android:layout_marginEnd="5dp"
         android:background="@drawable/pause" />
 
     <TextView
-        android:id="@+id/main_VIEW_score"
+        android:id="@+id/txt_Score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
@@ -59,11 +59,11 @@
         android:layout_marginStart="5dp"/>
 
     <GridLayout
-        android:id="@+id/main_GRID"
+        android:id="@+id/gridLayout"
         android:layout_width="fill_parent"
         android:layout_height="550dp"
-        android:layout_below="@+id/main_IMAGE_LIVE"
-        android:layout_above="@id/main_BUTTON_go_right"
+        android:layout_below="@+id/img_Live1"
+        android:layout_above="@id/btn_GoRight"
         android:layout_centerInParent="true"
         android:columnCount="5"
         android:rowCount="5">
@@ -239,7 +239,7 @@
             android:src="@drawable/joomba" />
 
         <ImageView
-            android:id="@+id/main_IMAGE_stitch"
+            android:id="@+id/img_Player1"
             android:layout_width="120dp"
             android:layout_height="100dp"
             android:layout_row="4"
@@ -247,7 +247,7 @@
             android:src="@drawable/cutestitch" />
 
         <ImageView
-            android:id="@+id/main_IMAGE_stitch2"
+            android:id="@+id/img_Player2"
             android:layout_width="120dp"
             android:layout_height="100dp"
             android:layout_row="4"
@@ -255,7 +255,7 @@
             android:src="@drawable/cutestitch" />
 
         <ImageView
-            android:id="@+id/main_IMAGE_stitch3"
+            android:id="@+id/img_Player3"
             android:layout_width="120dp"
             android:layout_height="98dp"
             android:layout_marginRight="3dp"
@@ -264,7 +264,7 @@
             android:src="@drawable/cutestitch" />
 
         <ImageView
-            android:id="@+id/main_IMAGE_stitch4"
+            android:id="@+id/img_Player4"
             android:layout_width="120dp"
             android:layout_height="98dp"
             android:layout_marginRight="3dp"
@@ -273,7 +273,7 @@
             android:src="@drawable/cutestitch" />
 
         <ImageView
-            android:id="@+id/main_IMAGE_stitch5"
+            android:id="@+id/img_Player5"
             android:layout_width="120dp"
             android:layout_height="98dp"
             android:layout_marginRight="3dp"
@@ -284,7 +284,7 @@
     </GridLayout>
 
     <Button
-        android:id="@+id/main_BUTTON_go_right"
+        android:id="@+id/btn_GoRight"
         android:layout_width="80dp"
         android:layout_height="60dp"
         android:layout_alignParentEnd="true"
@@ -292,7 +292,7 @@
         android:background="@drawable/leafright" />
 
     <Button
-        android:id="@+id/main_BUTTON_go_left"
+        android:id="@+id/btn_GoLeft"
         android:layout_width="80dp"
         android:layout_height="60dp"
         android:layout_alignParentStart="true"
