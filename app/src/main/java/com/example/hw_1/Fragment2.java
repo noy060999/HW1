@@ -32,7 +32,6 @@ public class Fragment2 extends Fragment {
 
     public static final String KEY_NAME = "KEY_NAME35";
     public static final String KEY_SCORE = "KEY_SCORE35";
-    public static final ArrayList<Button> pins = new ArrayList<>();
     public static int numberOfLines = 0;
     int i;
     SharedPreferences gamePrefs;
