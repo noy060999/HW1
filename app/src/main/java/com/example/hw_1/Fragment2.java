@@ -29,15 +29,13 @@ import java.util.Map;
 import static android.content.Context.MODE_PRIVATE;
 
 public class Fragment2 extends Fragment {
-   // public static ArrayList<Player> allPlayersSorted= new ArrayList<Player>();
-    //public static ArrayList<Player> allPlayers= new ArrayList<Player>();
+
     public static final String KEY_NAME = "KEY_NAME35";
     public static final String KEY_SCORE = "KEY_SCORE35";
     public static final ArrayList<Button> pins = new ArrayList<>();
     public static int numberOfLines = 0;
     int i;
     SharedPreferences gamePrefs;
-    String curName;
     ArrayList<TextView> namesTV = new ArrayList<TextView>();
     ArrayList<TextView> scoresTV = new ArrayList<TextView>();
     ArrayList<Player> allPlayersGson;
@@ -70,25 +68,6 @@ public class Fragment2 extends Fragment {
         scoresTV.add((TextView) view.findViewById(R.id.fragment2_TXT_score8));
         scoresTV.add((TextView) view.findViewById(R.id.fragment2_TXT_score9));
         scoresTV.add((TextView) view.findViewById(R.id.fragment2_TXT_score10));
-
-        pins.add((Button) view.findViewById(R.id.pin1));
-        pins.add((Button) view.findViewById(R.id.pin2));
-        pins.add((Button) view.findViewById(R.id.pin3));
-        pins.add((Button) view.findViewById(R.id.pin4));
-        pins.add((Button) view.findViewById(R.id.pin5));
-        pins.add((Button) view.findViewById(R.id.pin6));
-        pins.add((Button) view.findViewById(R.id.pin7));
-        pins.add((Button) view.findViewById(R.id.pin8));
-        pins.add((Button) view.findViewById(R.id.pin9));
-        pins.add((Button) view.findViewById(R.id.pin10));
-        //setDimensions();
-
-            pins.get(0).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //HighScoresActivity.showSpecificLocation(googleMap,0);
-                }
-            });
 
         String[] arrayOfNames;
         String[] arrayOfScoresString;
@@ -126,22 +105,6 @@ public class Fragment2 extends Fragment {
             Collections.sort(allPlayersGson,Collections.<Player>reverseOrder());
     }
 
-    public void setDimensions(){
-        TableLayout table = getView().findViewById(R.id.content_fragment2_table);
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        int tableH = displayMetrics.heightPixels;
-        int tableW = displayMetrics.widthPixels - 55;
-        int pinH = tableH/10;
-        int pinW = displayMetrics.heightPixels - tableW;
-        table.requestLayout();
-        table.getLayoutParams().height = tableH;
-        table.getLayoutParams().width = tableW;
-        for (int i=0; i<pins.size(); i++){
-            pins.get(i).requestLayout();
-            pins.get(i).getLayoutParams().height = pinH;
-            pins.get(i).getLayoutParams().width = pinW;
-        }
-    }
     @Override
     public void onDestroy() {
         super.onDestroy();

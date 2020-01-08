@@ -49,7 +49,7 @@ public class EndActivity extends AppCompatActivity {
 
     public static final String GAME_PREFS = "ArithmeticFile";
     public static final String KEY_NEW_NUMBER_OF_LANES = "KEY_NEW_NUMBER_OF_LANES";
-    public static final String KEY_JSON = "KEY_JSON_FINAL";
+    public static final String KEY_JSON = "KEY_JSON_FINAL2";
     ArrayList<Player> allPlayers;
     String curName,curScore;
     double lat,lon;
